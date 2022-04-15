@@ -217,10 +217,27 @@ function dataEdit(index) {
   let rowdata = Object.values(temp[index]);
   //console.log(rowdata[0], "ffff");
   document.forms["contactform"]["fullname"].value = rowdata[0];
-  document.forms["contactform"]["gender"].checked = rowdata[1];
+  const gender = document.forms["contactform"]["gender"];
+  //console.log(gender, "ggg");
+  for (var i = 0; i < gender.length; i++) {
+    if (rowdata[1] === gender[i].value) {
+      gender[i].checked = true;
+    } else {
+      gender[i].checked = false;
+    }
+  }
   document.forms["contactform"]["dateofbirth"].value = rowdata[2];
   document.forms["contactform"]["city"].value = rowdata[3];
-  document.forms["contactform"]["hobby"].checked = rowdata[4];
+  const hobby = document.forms["contactform"]["hobby"];
+
+  for (var i = 0; i < hobby.length; i++) {
+    if (rowdata[4].includes(hobby[i].value)) {
+      hobby[i].checked = true;
+    } else {
+      hobby[i].checked = false;
+    }
+  }
+  // document.forms["contactform"]["hobby"].checked = rowdata[4];
   document.forms["contactform"]["address"].value = rowdata[5];
   btn.value = "update";
   //btn.innerHTML = "update";
