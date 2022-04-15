@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CRUD opration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <link rel="stylesheet" href="../assets/style/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="formheader">Basic Detail</h1>
+    </div>
+    <div class="container">
+        <form name="contactform">
+            <div class="form">
+                <label for="fullname">FULL NAME</label>
+                <input class="input" type="text" id="fullname" name="fullname" oninput="namevalidation()" placeholder="Add your name" />
+                <p class="message" id="nameerror"></p>
+            </div>
+            <div class="form">
+                <label for="gender">GENDER</label>
+                <div class="gender-detail">
+                    <input type="radio" id="female" name="gender" value="female" oninput="gendervalidation()" />
+                    <label class="checkbox" for="female">Female</label>
+                    <input type="radio" name="gender" id="male" value="male" oninput="gendervalidation()" />
+                    <label class="checkbox" for="male">Male</label>
+                </div>
+                <p class="message" id="gendererror"></p>
+            </div>
+            <div class="form">
+                <label for="dateofbirth">DATE OF BIRTH</label>
+                <input class="input" type="date" id="dateofbirth" name="dateofbirth" oninput="datevalidation()"
+                    placeholder="date of birth" />
+                <p class="message" id="dateerror"></p>
+            </div>
+            <div class="form">
+                <label for="city">CITY</label>
+                <!-- <input class="input" type="text" id="city" oninput="cityvalidation()" placeholder="add your city" /> -->
+                <select class="select" name="city" id="city" oninput="cityvalidation()">
+                    <option class="option" value="Addcity">Add your city</option>
+                    <option class="option" value="ahmedabad">Ahemdabad</option>
+                    <option class="option" value="vadodara">Vadodara</option>
+                    <option class="option" value="surat">Surat</option>
+                </select>
+                <p class="message" id="cityerror"></p>
+            </div>
+            <div class="hobby-detail form">
+                <label for="hobby">HOBBY</label>
+                <div class="detail">
+                    <input type="checkbox" id="reading" name="hobby"  value="Reading" oninput="hobbyvalidation()" />
+                    <label class="checkbox" for="reading">Reading</label><br>
+                    <input type="checkbox" id="singing" name="hobby" value="Singing" oninput="hobbyvalidation()" />
+                    <label class="checkbox" for="singing">Singing</label><br>
+                    <input type="checkbox" id="drawing" name="hobby" value="Drawing" oninput="hobbyvalidation()" />
+                    <label class="checkbox" for="drawing">Drawing</label>
+                </div>
+                <p class="message" id="hobbyerror"></p>
+            </div>
+            <div class="form">
+                <label for="address">ADDRESS</label>
+                <textarea class="textarea" class="input" id="address" name="address" oninput="addressvalidation()"
+                    placeholder="Add your address"></textarea>
+                <p class="message" id="addresserror"></p>
+            </div>
+            <div class="form">
+                <input type="button" id="formsubmit" class="submit" onclick="submitvalidation(event)" value="submit"/>
+            </div>
+        </form>
+    </div>
+    <div class="usertable">
+        <table border="1" class="tabledata">
+            <thead id="headdata">
+                <th>FULL NAME</th>
+                <th>GENDER</th>
+                <th>DATE OF BIRTH</th>
+                <th>CITY</th>
+                <th>HOBBY</th>
+                <th>ADDRESS</th>
+                <th>ACTIONS</th>
+            </thead>
+            <tbody id="bodydata">
+            </tbody>
+
+        </table>
+    </div>
+    <script src="../assets/script/index.js">
+
+    </script>
+</body>
