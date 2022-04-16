@@ -1,8 +1,8 @@
 let tablebody = document.getElementById("bodydata");
 let temp = [];
-let newind = "";
 let formstore = localStorage.getItem("localstore");
 let btn = document.getElementById("formsubmit");
+
 if (formstore === null) {
   temp = [];
 } else {
@@ -11,9 +11,23 @@ if (formstore === null) {
 window.addEventListener("load", () => {
   temp.map((item, index) => {
     getData(item, index);
-    // console.log(item);
   });
 });
+
+// function formValidation(id) {
+//   let getid = document.getElementById(id).value;
+//   if (getid === "") {
+//     seterror("nameerror", "please enter your name");
+//     seterror("dateerror", "please enter your date of birth");
+//     seterror("cityerror", "please select your city");
+//     seterror("addresserror", "please enter your address");
+//   } else {
+//     seterror("nameerror", "");
+//     seterror("dateerror", "");
+//     seterror("cityerror", "");
+//     seterror("addresserror", "");
+//   }
+// }
 function namevalidation() {
   fullName = document.getElementById("fullname").value;
   if (fullName === "") {
@@ -24,6 +38,7 @@ function namevalidation() {
     return false;
   }
 }
+
 function gendervalidation() {
   gender = document.getElementsByName("gender");
   if (gender[0].checked == false && gender[1].checked == false) {
@@ -34,9 +49,9 @@ function gendervalidation() {
     return false;
   }
 }
+
 function datevalidation() {
   dateofbirth = document.getElementById("dateofbirth").value;
-  //console.log(dateofbirth);
   if (dateofbirth === "") {
     seterror("dateerror", "please enter your date of birth");
     return true;
@@ -45,6 +60,7 @@ function datevalidation() {
     return false;
   }
 }
+
 function cityvalidation() {
   city = document.getElementById("city").value;
   if (city === "Addcity") {
@@ -55,6 +71,7 @@ function cityvalidation() {
     return false;
   }
 }
+
 function hobbyvalidation() {
   hobby = document.getElementsByName("hobby");
   let inputcheckbox = [];
@@ -72,6 +89,7 @@ function hobbyvalidation() {
     return true;
   }
 }
+
 function addressvalidation() {
   address = document.getElementById("address").value;
   if (address === "") {
@@ -82,7 +100,8 @@ function addressvalidation() {
     return false;
   }
 }
-function submitvalidation(event) {
+
+function submitvalidation(event, id) {
   event.preventDefault();
   fullName = document.getElementById("fullname").value;
   gender = document.getElementsByName("gender");
@@ -106,6 +125,21 @@ function submitvalidation(event) {
   var hobbyre = inputcheckbox.join(",");
 
   address = document.getElementById("address").value;
+  // if (
+  //   (formValidation(id) && gendervalidation() && hobbyvalidation()) ||
+  //   formValidation(id) ||
+  //   gendervalidation() ||
+  //   hobbyvalidation()
+  // ) {
+  // } else {
+  //   const formdata = {
+  //     name: fullName,
+  //     gender: genderr,
+  //     dateofbirth: dateofbirth,
+  //     city: city,
+  //     hobby: hobbyre,
+  //     address: address,
+  //   };
   if (
     (namevalidation() &&
       gendervalidation() &&
@@ -129,24 +163,15 @@ function submitvalidation(event) {
       hobby: hobbyre,
       address: address,
     };
-
-    //dataEdit(index);
-
     if (btn.value === "submit") {
-      //console.log("test");
-      //console.log(temp);
       getData(formdata, temp.length);
       storeData(formdata);
       resetData();
     } else {
-      // newid = index;
       let indexdata = temp[newid];
-      //console.log(newid, "newind");
       let trdata = document.getElementById(`rowdata${newid}`);
-      //console.log(trdata);
       let updatedata = (indexdata = formdata);
       temp.splice(newid, 1, updatedata);
-      console.log(temp.splice(newid, 1, updatedata));
       newdata = `<tr id="rowdata${newid}"><td>${formdata.name}</td><td>${formdata.gender}</td><td>${formdata.dateofbirth}</td><td>${formdata.city}</td><td>${formdata.hobby}</td><td>${formdata.address}</td><td><button class="editbutton" type='submit' id="editbtn" onclick="dataEdit(${newid})" ><i class="fa fa-edit"></i>
   </button><button type='submit' id="deletebtn" onclick='dataDelete(${newid})'><i class="fa fa-trash-o"></i>
   </button></td></tr>`;
@@ -156,20 +181,20 @@ function submitvalidation(event) {
     }
   }
 }
+
 function storeData(formdata) {
   temp.push(formdata);
   localStorage.setItem("localstore", JSON.stringify(temp));
 }
+
 function getData(formdata, index) {
   let newdata = "";
-  //console.log(index, "getdata");
   newdata =
     newdata +
     `<tr id="rowdata${index}"><td>${formdata.name}</td><td>${formdata.gender}</td><td>${formdata.dateofbirth}</td><td>${formdata.city}</td><td>${formdata.hobby}</td><td>${formdata.address}</td><td><button class="editbutton" type='submit' id="editbtn" onclick="dataEdit(${index})" ><i class="fa fa-edit"></i>
   </button><button type='submit' id="deletebtn" onclick='dataDelete(${index})'><i class="fa fa-trash-o"></i>
   </button></td></tr>`;
   tablebody.innerHTML += newdata;
-  //console.log(formdata, "index");
 }
 
 function resetData() {
@@ -199,26 +224,18 @@ function seterror(id, error) {
   formerror.innerHTML = error;
 }
 
-// function dataDelete() {
-//   let elem = document.getElementById("deletebtn");
-//   elem.parentElement.parentElement.remove("tr");
-//   return false;
-// }
 function dataDelete(index) {
   let tableid = document.getElementById(`rowdata${index}`);
-  //console.log(index, "newIndex");
   temp.splice(index, 1);
   localStorage.setItem("localstore", JSON.stringify(temp));
   tableid.remove();
 }
+
 function dataEdit(index) {
   newid = index;
-  // console.log(newid);
   let rowdata = Object.values(temp[index]);
-  //console.log(rowdata[0], "ffff");
   document.forms["contactform"]["fullname"].value = rowdata[0];
   const gender = document.forms["contactform"]["gender"];
-  //console.log(gender, "ggg");
   for (var i = 0; i < gender.length; i++) {
     if (rowdata[1] === gender[i].value) {
       gender[i].checked = true;
@@ -237,11 +254,6 @@ function dataEdit(index) {
       hobby[i].checked = false;
     }
   }
-  // document.forms["contactform"]["hobby"].checked = rowdata[4];
   document.forms["contactform"]["address"].value = rowdata[5];
   btn.value = "update";
-  //btn.innerHTML = "update";
-  //console.log(btn.value);
-
-  //getData();
 }
